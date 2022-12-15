@@ -42,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http.authorizeRequests().antMatchers("/").permitAll()
+      http.authorizeRequests().antMatchers("/**").permitAll()
+      .antMatchers("/register").permitAll()
       .antMatchers("/product/delete/**").hasAuthority("admin")
       .antMatchers("/product/edit/**").hasAuthority("admin")
       .anyRequest().authenticated()
@@ -51,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .loginPage("/login")
         .permitAll()
       .and()
-        .logout()
+        .logout().logoutSuccessUrl("/").invalidateHttpSession(true)
         .permitAll()
       .and()
         .exceptionHandling().accessDeniedPage("/403")

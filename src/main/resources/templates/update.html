@@ -4,14 +4,13 @@
 <meta charset="ISO-8859-1">
 <title>Employee Management System</title>
  
-<link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/lumen/bootstrap.min.css" integrity="sha512-Y6hbhfksNvY29oe7NsJ4ED55Gi0iFDfphe/gDNbOqHce+qMt+G1FSy48+zoy2ZSwbwdLWABtVKI+ZgrInCFvHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <nav class="navbar navbar-light bg-light mb-5">
-        <a class="navbar-brand" th:href="@{/}">Update Employee</a>
+        <a class="navbar-brand mx-3" th:href="@{/}">Update Employee</a>
       </nav>
-    <div class="container">
+    <div class="container w-50">
         
  
         <form action="#" th:action="@{/save}" th:object="${employee}"
@@ -19,16 +18,16 @@
              
             <!-- Add hidden form field to handle update -->
             <input type="hidden" th:field="*{id}" />
-            <input type="text" th:field="*{title}" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{title}" class="form-control mb-4 col-4 p-3">
              
-            <input type="text" th:field="*{name}" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{name}" class="form-control mb-4 col-4 p-3">
                                  
-                <input type="text" th:field="*{email}" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{email}" class="form-control mb-4 col-4 p-3">
                  
-                <button type="submit" class="btn btn-info col-2"> Update Employee</button>
+                <button type="submit" class="btn btn-info col-2"> Update </button>
         </form>
          
-        <hr>
+       
          
     </div>
 </body>

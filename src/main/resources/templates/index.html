@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="ISO-8859-1">
 <title>Employee</title>
-<link rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/lumen/bootstrap.min.css" integrity="sha512-Y6hbhfksNvY29oe7NsJ4ED55Gi0iFDfphe/gDNbOqHce+qMt+G1FSy48+zoy2ZSwbwdLWABtVKI+ZgrInCFvHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" 
     type="text/css" 
     href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
@@ -14,44 +11,67 @@
     <style>
         th {
     background-color: rgb(101, 199, 124);
-    color: white;
+    color: rgb(10, 10, 10);
 } 
  </style>
 </head>
-<body>
+
+<body >
+<div sec:authorize="isAnonymous()"
+class="align-items-center d-flex flex-column justify-content-center mt-5"
+> 
+<p >Please, <a href="@{/login}">Login </a>to access this page.</p>
+
+<p> Or, <a href="@{/register}">Register.</a> If you don't have an account.</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAFR0lEQVRoge2aW2idRRDHf6mec9Lapo2pOQ99aE00miKoNT6oeKWmBi8txYfWiFaRioqoQUlFaUVUUq2CeAPrpSiKIlKQhtoXi8ZL7UW0iFYTb63RUmsf2qpJKvl8mFl2Q77zfftdklTxD8tydmdmZ7+d3ZmdPTCxuAh4E+gHBoE9wGvAOQ7NucDrwM9K0w+8AVwwrppWQBF4AQgiyjPAszE0zwOFvJWrBRYBjwHdwC7gAPIVB5EvepzSvqiKHAbuAxp0co3Ag0pvlB0EHgGagJLS3q+8AbA2D+VLQDuwCfib6K/3nPLM19+HgJYKci/BfoCLK9C0qIwggiYWk4EOxF6NogPAZmAlsjLNyCoVkK9dVN63lX5FzBidWqKwQmW9lXgGQBvQh53AZ8ByYIYn/17lmx1Dd4yWKMxWWb94jg1ANSM33+fIpKqSCEFWLlB5WVGtsv7yZSgD2x2mu4BjUw7+o8o5MSW/iwaV9YMP8RygVxl6gTMyDr5RZS3LKAfgBpXVHUdYxk5iK3BCDoPfqPI+JrlZuqgCPsHjo1RjzWkrMC3DoC6mIpszAK7PIGeZytiD9U+hMBu7l3xWwsW1WIc4LwX/POAPlXF1FGEbdmNn3ROVsFbHOIDEXL44G9ivvE9EEU7G+omOdDp6oQisx4Yh13nwLMWuxEvE+JkOrJ9Ie8T6oqAKGd/0MjA9hG46sE5phoGHiDkoStiwoy0/fWNxG/CnjrsbaHX6WrUtAPYBC30EtmPDjixHYxo0Y0/JAFmBdc7v9Yg7ADge2SsVsUmZlo+RsnEoAKsYGcYfZOQx3Qj8RIQTrEVC8QH8AsAisBrxCf1AFzbC9UEU/1mq7KequIt61XOokp6LkC/wnqciXYy+c3R58vrwz0T2bBh6lP7KsM412rnSUxH3LmJKvydvVv6Hlf5R0zDJ6TxV6y8SKDNR2K51s2lwJ9Kk9beewl4NaXslgTJZ+Pu0Pjms07j9Ok9hRcSm+0m/2dPy16mu+8M6zZGXRJmJQhEb2gAjTevfBOOsA9PgTuSw1lPHTZ30qNH6oGlwJ2LsrczRj3qtfzcN7kTMSdDE0Y9TtO41De5EvtL69AgBHyFhQ00ETVbUANuADyNojI5fh3UuRDbP5ggBO5RmI2NzupWwgeuOCLoPlOaKsM4Z2KCxtoKARuA3FfIOMCWdvqGYAmzA3jsaKtDVIQHjEBGW8a4KujliwDORTRYgZjYrscqjMQvJ1BgnF2XetyrdhiiB1+B3sZqLZPcCZFJLvVUejXYkAREA3+PETyGoQq7gAbAkSmgJeccIgMtjFChjs4YBchDM91Dc4FJsgs1kC+sjOeAq7HU4do/eqcQ7iU8+VCFmaPZNgBzja4AFyMpN0zIXuAx4HPjOod8H3ET81boAfKk8t8dNAiTDaNKkd/swqKL3Yp8MfMqvyPuGbyTRqXy7qHzhGoUF2MebJJnAScB5yIWnB5nYgJa92rYaeeBMEue1qIxhkpkvAE9jTSXOdscSZeQQCIAn0wgoYY/EbeSXxE6CGmyKaAsZnPBMxCYDFTieK+M+LvWRQzA7B7n+GoFpsudJ0YI1p2+If2/0Rj3WzAaAexiDh3qV2Yl9Z9xC/k8alICnsMfnTiRoyyO1WoU4O+MnhpGNPabX7lasqZms/S1IPjYp6pDYyYQdxk8kPmLTogTcgTx7GQUGkfB6FbAYOE0VNX8WqNO2xcADiE8Zcvh3Ix7b29nliRISMHYDR/Dz6G45gkSxS8hoRnk+HdQAFwLnIxHsSchGNf7nEBJX9SE3ux7gfW3/H/85/AMs8quJxYQf7wAAAABJRU5ErkJggg==">
+</div>
+<div sec:authorize="isAuthenticated()">
+
     <!-- As a link -->
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" th:href="@{/}">Employee List</a>
+    <a class="navbar-brand mx-3" th:href="@{/}">Employee List</a>
+
+    <a class="navbar-brand" th:href="@{/}" sec:authorize="hasAuthority('ROLE_USER')">USER</a>
+    
+    <a class="navbar-brand" th:href="@{/}" sec:authorize="hasAuthority('ROLE_ADMIN')">ADMIN</a>
+    <a class="navbar-brand" th:href="@{/logout}">Log Out</a>
   </nav>
 <div class="container my-2" >
  
 
-<a th:href="@{/addnew}" class="btn btn-info btn-sm mb-5 mt-4" >Add Employee</a>
-    <table style="width:100%" border="1"
+<a th:href="@{/addnew}" class="btn btn-info btn-sm mb-5 mt-4" sec:authorize="hasAuthority('ROLE_ADMIN')" >Add Employee</a>
+
+
+<table style="width:100%"
            class = "table table-striped table-responsive-md"
            id="employeeTable"
+          
            >
-    <thead>
+  <thead>
   <tr class="primary">
     <th>Title</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Action</th>
+    <th  sec:authorize="hasAuthority('ROLE_ADMIN')">Action</th>
   </tr>
   </thead>
+
   <tbody>
   <tr th:each="employee:${allemplist}">
-    <td th:text="${employee.title}"></td>
+    <td th:text="${employee.title}" ></td>
         <td th:text="${employee.name}"></td>
         <td th:text="${employee.email}"></td>
-        <td> <a th:href="@{/update/{id}(id=${employee.id})}"
-                class="btn btn-info">Update</a>
+
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')" > 
+          <a th:href="@{/update/{id}(id=${employee.id})}"
+                class="btn btn-info ">Update</a>
                 <a th:href="@{/delete/{id}(id=${employee.id})}"
-                class="btn btn-danger">Delete</a>
+                class="btn btn-danger w-50 ">Delete</a>
         </td>
   </tr>
   </tbody>
 </table>
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>

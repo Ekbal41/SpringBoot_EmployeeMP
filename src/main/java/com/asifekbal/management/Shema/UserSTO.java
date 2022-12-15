@@ -1,28 +1,22 @@
 package com.asifekbal.management.Shema;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-
+import org.springframework.data.annotation.CreatedDate;
 
 
 @Entity
 @Table(name = "tbl_user")
-public class User {
+public class UserSTO {
     
     @Id
     @Column(name = "id")
@@ -36,17 +30,8 @@ public class User {
     private String email;
 
     @Column(name = "created_date")
-    @CreationTimestamp
+    @CreatedDate
     private Date createdDate;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "tbl_user_roles",
-        joinColumns = @JoinColumn(name="user_id"),
-        inverseJoinColumns = @JoinColumn(name="role_id")
-    )
-
-    private Set<Role> roles=new HashSet<>();
 
     public int getId() {
         return id;
@@ -89,11 +74,4 @@ public class User {
         this.createdDate = createdDate;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }

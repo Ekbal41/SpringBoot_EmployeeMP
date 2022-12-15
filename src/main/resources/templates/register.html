@@ -15,29 +15,29 @@
 </head>
 <body>
     <div class="container w-50">
-        <h1 class="text-center mt-4">LOG IN</h1>
-        <form th:action="@{/login}" method="POST" class="mt-5 w-100">
+        <h1 class="text-center mt-4">REGISTER</h1>
+        <form th:action="@{/save_user}" method="POST" th:object="${userSTO}" class="mt-5 w-100">
             
-            <div th:if="${param.error}" class="alert alert-danger">
-                Invalid username and password.
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success">
-                You have been logged out.
-            </div>
+            
             <div class="form-group mb-3">
                 <label for="">Username</label>
-                <input type="text" class="form-control p-3" name="username" id="">
+                <input type="text" class="form-control p-3" th:field="*{username}">
     
             </div>
             <div class="form-group  ">
                 <label for="">Password</label>
-                <input type="password" class="form-control p-3" name="password" id="pw">
+                <input type="password" class="form-control p-3" th:field="*{password}" >
+    
+            </div>
+             <div class="form-group  ">
+                <label for="">Email</label>
+                <input type="email" class="form-control p-3" th:field="*{email}" >
     
             </div>
             
             <div class="d-grid gap-2 form-actions mt-3">
   
-              <button class="btn btn-lg btn-primary" type="submit">Log In</button>
+              <button class="btn btn-lg btn-primary" type="submit">Create Account</button>
             </div>
     
         </form>
@@ -46,7 +46,3 @@
     
 </body>
 </html>
-
-
-
-
